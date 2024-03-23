@@ -40,7 +40,6 @@ main {
   transition: all 0.25s;
   padding: 1.2rem;
   border: 1px solid transparent;
-
 }
 
 .inputGroup button:hover {
@@ -72,26 +71,45 @@ main {
 }
 
 .todoItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 97% 3%;
   margin-top: 2rem;
-
-  background-color: #333333;
+  
   border-radius: 16px;
-  border-color: 1px solid #555555;
   padding: 1rem 2.2rem;
+}
 
+.notDone {
+  background-color: #333333;
+  border-color: 1px solid #767676;
+}
+
+.isDone {
+  color: #808080;
+  background-color: #2d2d2d;
+}
+
+.todoItem img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  padding: 10px;
+}
+.todoItem img:hover {
+  background-color: #444444;
+  border-radius: 50%;
+}
+
+.isDone div {
+  text-decoration: line-through;
 }
 
 .todoItem > div {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 20px;
   cursor: pointer;
-
-
 }
 
 .emptyTodoCard {
@@ -112,4 +130,9 @@ main {
 .emptyTodoCard span{
  color: #808080;
  line-height: 0.4;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;  
 }

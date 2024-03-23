@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import headerLogo from './assets/logo.svg'
 import emptyList from './assets/emptyList.svg'
+import trash from './assets/trash.svg'
 
 //import { Footer } from './components/Footer/Footer'
 import { Header } from './components/Header/Header'
@@ -45,15 +46,7 @@ function App() {
     ) as any
 
     setTodoList(findTodo)
-
-
-
-
-
-
   }
-
-
 
   const handleCompletedTodo = () => {
     const completedTodo = todoList.filter((todo: any) => todo.done)
@@ -92,12 +85,14 @@ function App() {
           <div>
             {
               todoList.length > 0 ? todoList.map((item: any) => (
-                <div key={item.id} className='todoItem'>
+                <div key={item.id} className={`todoItem ${item.done ? 'isDone' : 'notDone'}`}>
                   <div onClick={() => doneTodo(item.id)}>
                     <input type="checkbox" checked={item.done} />
                     <p>{`${item.todo} • ${item.createdAt}`}</p>
                   </div>
-                  <button onClick={() => deleteTodo(item.id)}>Remover</button>
+                  <div onClick={() => deleteTodo(item.id)}>
+                    <img src={trash} alt="" />
+                  </div>
                 </div>
               )) :
                 <div className='emptyTodoCard'>
