@@ -4,7 +4,7 @@ import headerLogo from './assets/logo.svg'
 import emptyList from './assets/emptyList.svg'
 import trash from './assets/trash.svg'
 
-//import { Footer } from './components/Footer/Footer'
+import { Footer } from './components/Footer/Footer'
 import { Header } from './components/Header/Header'
 import { TodoInfo } from './components/TodoInfo/TodoInfo'
 
@@ -82,7 +82,7 @@ function App() {
               color='#8284FA'
             />
           </div>
-          <div>
+          <div className='todoContainer'>
             {
               todoList.length > 0 ? todoList.map((item: any) => (
                 <div key={item.id} className={`todoItem ${item.done ? 'isDone' : 'notDone'}`}>
@@ -104,11 +104,11 @@ function App() {
           </div>
         </div>
       </main>
-      {/*
-       <Footer>
+
+      <Footer>
         Developed by Manuel Molina • 2024
       </Footer>
-      */}
+
     </>
   )
 }
