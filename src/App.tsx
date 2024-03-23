@@ -7,13 +7,30 @@ import trash from './assets/trash.svg'
 import { Footer } from './components/Footer/Footer'
 import { Header } from './components/Header/Header'
 import { TodoInfo } from './components/TodoInfo/TodoInfo'
+import { TodoList } from './components/TodoList/TodoList'
+
+interface TodoProps {
+  id: string | number
+  todo: string
+  done: boolean
+  createdAt: string
+}
 
 function App() {
-  const [todoList, setTodoList] = useState([])
+  const [todoList, setTodoList] = useState<TodoProps[]>([])
   const [newTodo, setNewTodo] = useState('')
+  const [showError, setShowError] = useState(false)
 
 
   function createTodo() {
+
+    if (!newTodo) {
+      setShowError(true)
+      return
+    } else {
+      setShowError(false)
+    }
+
     setTodoList([...todoList, {
       id: new Date().getTime(),
       todo: newTodo,
@@ -26,30 +43,29 @@ function App() {
           year: 'numeric',
         }
       )
-    }] as any)
+    }])
 
     setNewTodo('')
   }
 
-  function deleteTodo(id: string) {
-    const filteredTodo = todoList.filter((todo: any) => todo.id !== id)
+  function deleteTodo(id: string | number) {
+    const filteredTodo = todoList.filter((todo: TodoProps) => todo.id !== id)
     setTodoList(filteredTodo)
   }
 
-  function doneTodo(id: string) {
-    const findTodo = todoList.map((todo: any) => {
+  function doneTodo(id: string | number) {
+    const findTodo = todoList.map((todo: TodoProps) => {
       if (todo.id === id) {
         todo.done = !todo.done
       }
       return todo
-    }
-    ) as any
+    })
 
     setTodoList(findTodo)
   }
 
   const handleCompletedTodo = () => {
-    const completedTodo = todoList.filter((todo: any) => todo.done)
+    const completedTodo = todoList.filter((todo: TodoProps) => todo.done)
     return `${completedTodo.length} de ${todoList.length}`
   }
 
@@ -66,8 +82,14 @@ function App() {
             placeholder='Adicione uma nova tarefa'
             onChange={(e) => setNewTodo(e.target.value)}
           />
-          <button onClick={() => createTodo()}>Criar</button>
+          <button onClick={() => createTodo()}
+          >Criar</button>
         </div>
+
+        {
+          showError && <span className='messageError'>Por favor, digite a tarefa antes de inserir o dado na lista</span>
+        }
+
 
         <div>
           <div className='todoCard'>
@@ -82,33 +104,18 @@ function App() {
               color='#8284FA'
             />
           </div>
-          <div className='todoContainer'>
-            {
-              todoList.length > 0 ? todoList.map((item: any) => (
-                <div key={item.id} className={`todoItem ${item.done ? 'isDone' : 'notDone'}`}>
-                  <div onClick={() => doneTodo(item.id)}>
-                    <input type="checkbox" checked={item.done} />
-                    <p>{`${item.todo} • ${item.createdAt}`}</p>
-                  </div>
-                  <div onClick={() => deleteTodo(item.id)}>
-                    <img src={trash} alt="" />
-                  </div>
-                </div>
-              )) :
-                <div className='emptyTodoCard'>
-                  <img src={emptyList} alt="" />
-                  <h4>Você ainda não tem tarefas cadastradas</h4>
-                  <span>Crie tarefas e organize seus itens a fazer</span>
-                </div>
-            }
-          </div>
+          <TodoList
+            todoList={todoList}
+            deleteTodo={deleteTodo}
+            doneTodo={doneTodo}
+            trash={trash}
+            emptyList={emptyList}
+          />
         </div>
       </main>
-
       <Footer>
         Developed by Manuel Molina • 2024
       </Footer>
-
     </>
   )
 }
