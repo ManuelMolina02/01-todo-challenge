@@ -2,6 +2,12 @@ main {
   max-width: 1280px;
   padding: 0 2rem;
   margin: 0 auto;
+  min-height: 63vh;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;  
 }
 
 .inputGroup {
@@ -70,10 +76,16 @@ main {
   padding: .25rem .9rem;
 }
 
+.todoContainer {
+  overflow: hidden;
+  height: 370px;
+  overflow-y: auto;
+}
+
 .todoItem {
   display: grid;
   grid-template-columns: 97% 3%;
-  margin-top: 2rem;
+  margin: 2rem 0;
   
   border-radius: 16px;
   padding: 1rem 2.2rem;
@@ -130,9 +142,4 @@ main {
 .emptyTodoCard span{
  color: #808080;
  line-height: 0.4;
-}
-
-input[type="checkbox"] {
-  width: 20px;
-  height: 20px;  
 }
